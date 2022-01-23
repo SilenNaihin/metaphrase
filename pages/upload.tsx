@@ -10,3 +10,5 @@ const Upload: NextPage = () => {
 };
 
 export default Upload;
+
+const UnofficialButton = styled.button``;
