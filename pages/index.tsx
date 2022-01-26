@@ -3,8 +3,8 @@ import { useDebugValue, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // import { useUser } from "../firebase/useUser";
 import styled from "styled-components";
-import heroLogo from "../images/Hero Logo.png";
-import unofficialIcon from "../images/unofficial-icon.png";
+import heroLogo from "../img/Hero Logo.png";
+import unofficialIcon from "../img/unofficial_icon.png";
 import Image from "next/image";
 
 const Home: NextPage = () => {
@@ -60,16 +60,28 @@ const Home: NextPage = () => {
       description:
         'Fiat (or "fiat currency") is a term used to refer to government-issued currency in which there is no commodity or asset backing it\'s underlying value. The value of fiat currency is derived fr om the word and trust of the people who use it as a medium of exchange.',
     },
+    {
+      title: "FiaT",
+      image: "",
+      description:
+        'Fiat (or "fiat currency") is a term is a term is a term is a term is a term used to refer to government-issued currency in which there is no commodity or asset backing it\'s underlying value. The value of fiat currency is derived fr om the word and trust of the people who use it as a medium of exchange.',
+    },
   ];
 
   return (
     <GlobalContainer>
       <TopBar>
         <LogIn dummy>LOG IN</LogIn>
-        <TopButton onClick={() => console.log("hey")}>ABOUT</TopButton>
-        <TopButton onClick={() => console.log("hey")}>NFT OWNERSHIP</TopButton>
-        <TopButton onClick={() => console.log("hey")}>VERIFIED LIST</TopButton>
-        <LogIn>LOG IN</LogIn>
+        <TopButton type="button" onClick={() => console.log("hey")}>
+          ABOUT
+        </TopButton>
+        <TopButton type="button" onClick={() => console.log("hey")}>
+          NFT OWNERSHIP
+        </TopButton>
+        <TopButton type="button" onClick={() => console.log("hey")}>
+          VERIFIED LIST
+        </TopButton>
+        <LogIn type="button">LOG IN</LogIn>
       </TopBar>
       <LogoWrapper>
         <Image
@@ -84,14 +96,18 @@ const Home: NextPage = () => {
         <TrendingText>TRENDING</TrendingText>
         {terms.map((term, index) => (
           <Term key={index}>
-            <ImageContainer>
-              <Image
-                layout={"fill"}
-                objectFit={"contain"}
-                src={term.image === "" ? unofficialIcon : term.image}
-                alt="Term icon"
-              />
-            </ImageContainer>
+            <OuterImageContainer>
+              <ImageCircle>
+                <ImageContainer>
+                  <Image
+                    layout={"fill"}
+                    objectFit={"contain"}
+                    src={term.image === "" ? unofficialIcon : term.image}
+                    alt="Term icon"
+                  />
+                </ImageContainer>
+              </ImageCircle>
+            </OuterImageContainer>
             <TextContainer>
               <Title>{term.title.toUpperCase()}</Title>
               <Description>{term.description}</Description>
@@ -108,10 +124,8 @@ export default Home;
 const GlobalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
   overflow-y: auto;
+  align-items: center;
 `;
 
 const TopBar = styled.div`
@@ -125,83 +139,126 @@ const TopBar = styled.div`
 const TopButton = styled.button`
   background-color: transparent;
   border: 1px solid #fff;
-  width: 50px;
-  height: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #fff;
+  margin-right: 15px;
+  width: 175px;
+  height: 25px;
+  font-size: 12px;
+  cursor: pointer;
 `;
 
+interface LogIn {
+  dummy?: boolean;
+}
+
 const LogIn = styled.button`
-  display: ${(dummy) => (dummy ? "none" : "")};
-  margin-left: ${(dummy) => (dummy ? "0" : "auto")};
-  margin-right: ${(dummy) => (dummy ? "auto" : "0")};
-  width: 50px;
+  cursor: pointer;
+  margin-left: ${(p: LogIn) => (p.dummy ? "20px" : "auto")};
+  margin-right: ${(p: LogIn) => (p.dummy ? "auto" : "20px")};
+  width: 120px;
+  border: none;
   height: 21px;
-  background: linear-gradient(
+  background: ${(p: LogIn) =>
+    p.dummy
+      ? "transparent"
+      : `linear-gradient(
     90deg,
     rgba(0, 56, 245, 1) 0%,
     rgba(0, 249, 181, 1) 100%
-  );
+  )`};
   font-weight: bold;
+  font-size: 12px;
 `;
 
-const LogoWrapper = styled.img`
-  width: 350px;
-  height: 50px;
+const LogoWrapper = styled.div`
+  width: 450px;
+  height: 100px;
   position: relative;
 `;
 
 const SearchTerms = styled.input`
-  width: 350px;
-  height: 25px;
+  width: 450px;
+  height: 30px;
   border: 2px solid #fff;
   border-radius: 3px;
   padding-left: 10px;
-  margin: 20px 0;
+  margin-bottom: 20px;
+  margin-top: 35px;
+  background-color: black;
+  &::placeholder {
+    color: #fff;
+    font-family: "Roboto Mono", monospace;
+  }
 `;
 
 const TermsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 70%;
 `;
 
-const TrendingText = styled.h1`
-  font-style: underline;
-  font-size: 20px;
+const TrendingText = styled.div`
+  text-decoration: underline;
+  font-size: 22px;
   margin: 20px 0;
 `;
 
 const Term = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
   border: 1px solid #666666;
   background-color: #141414;
-  border-radius: 20px;
-  height: 60px;
-  padding: 0 40px;
+  border-radius: 35px;
+  height: 100px;
+  padding: 0px 40px;
+  margin-bottom: 20px;
 `;
 
 const ImageContainer = styled.div`
-  border-radius: 100%;
-  border: 2px solid #fff;
-  height: 100%;
   width: 50px;
   height: 50px;
   position: relative;
+  display: flex;
+`;
+
+const OuterImageContainer = styled.div`
+  width: 100px;
+`;
+
+const ImageCircle = styled.div`
+  border-radius: 100%;
+  border: 2px solid #fff;
+  width: 100px;
+  height: 100px;
   background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TextContainer = styled.div`
   margin-left: 20px;
   display: flex;
+  width: 80%;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const Title = styled.h1`
-    font-weight: bold;
-    font-size: 18px;
+  font-weight: bold;
+  font-size: 18px;
 `;
 
 const Description = styled.p`
-  font-size: 14px;
+  margin-top: 0px;
+  font-size: 12px;
+  color: #f8f8f8;
+  -webkit-font-smoothing: antialiased;
 `;
