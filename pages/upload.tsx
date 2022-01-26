@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 const Upload: NextPage = () => {
   return (
-    <GlobalContainer>
+    <div>
       
-    </GlobalContainer>
+    </div>
   );
 };
 
