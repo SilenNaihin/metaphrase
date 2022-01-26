@@ -230,10 +230,8 @@ const SearchTerms = styled.input`
   margin-bottom: 20px;
   margin-top: 35px;
   background-color: black;
-  &::placeholder {
-    color: #fff;
-    font-family: "Roboto Mono", monospace;
-  }
+  color: #fff;
+  font-family: "Roboto Mono", monospace;
   @media (max-width: 600px) {
     width: 90%;
   }
