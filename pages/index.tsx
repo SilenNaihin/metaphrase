@@ -72,15 +72,17 @@ const Home: NextPage = () => {
     <GlobalContainer>
       <TopBar>
         <LogIn dummy>LOG IN</LogIn>
-        <TopButton type="button" onClick={() => console.log("hey")}>
-          ABOUT
-        </TopButton>
-        <TopButton type="button" onClick={() => console.log("hey")}>
-          NFT OWNERSHIP
-        </TopButton>
-        <TopButton type="button" onClick={() => console.log("hey")}>
-          VERIFIED LIST
-        </TopButton>
+        <MiddleSection>
+          <TopButton first type="button" onClick={() => console.log("hey")}>
+            ABOUT
+          </TopButton>
+          <TopButton type="button" onClick={() => console.log("hey")}>
+            NFT OWNERSHIP
+          </TopButton>
+          <TopButton type="button" onClick={() => console.log("hey")}>
+            VERIFIED LIST
+          </TopButton>
+        </MiddleSection>
         <LogIn type="button">LOG IN</LogIn>
       </TopBar>
       <LogoWrapper>
@@ -133,8 +135,19 @@ const TopBar = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
   align-items: center;
 `;
+
+const MiddleSection = styled.div`
+  display: flex;
+`;
+
+interface FirstElement {
+  first?: boolean;
+}
 
 const TopButton = styled.button`
   background-color: transparent;
@@ -142,11 +155,27 @@ const TopButton = styled.button`
   padding-top: 5px;
   padding-bottom: 5px;
   color: #fff;
-  margin-right: 15px;
-  width: 175px;
+  margin-left: ${(p: FirstElement) => (p.first ? "0px" : "20px")};
   height: 25px;
   font-size: 12px;
   cursor: pointer;
+  @media (min-width: 1000px) {
+    width: 175px;
+  }
+  @media (max-width: 1000px) {
+    margin-left: ${(p: FirstElement) => (p.first ? "20px" : "20px")};
+  }
+  @media (max-width: 768px) {
+    margin-left: ${(p: FirstElement) => (p.first ? "0" : "20px")};
+  }
+  @media (max-width: 600px) {
+    width: 125px;
+  }
+  @media (max-width: 420px) {
+    width: 33%;
+    margin-left: ${(p: FirstElement) => (p.first ? "0" : "10px")};
+    height: 40px;
+  }
 `;
 
 interface LogIn {
@@ -170,12 +199,26 @@ const LogIn = styled.button`
   )`};
   font-weight: bold;
   font-size: 12px;
+  @media (max-width: 1000px) {
+    display: ${(p: LogIn) => (p.dummy ? "none" : "")};
+  }
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 420px) {
+    width: 30%;
+  }
 `;
 
 const LogoWrapper = styled.div`
   width: 450px;
   height: 100px;
   position: relative;
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 const SearchTerms = styled.input`
@@ -191,6 +234,9 @@ const SearchTerms = styled.input`
     color: #fff;
     font-family: "Roboto Mono", monospace;
   }
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 const TermsContainer = styled.div`
@@ -199,6 +245,12 @@ const TermsContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 70%;
+  @media (max-width: 600px) {
+    width: 80%;
+  }
+  @media (max-width: 420px) {
+    width: 90%;
+  }
 `;
 
 const TrendingText = styled.div`
@@ -216,9 +268,15 @@ const Term = styled.div`
   border: 1px solid #666666;
   background-color: #141414;
   border-radius: 35px;
-  height: 100px;
+  height: 110px;
   padding: 0px 40px;
   margin-bottom: 20px;
+  @media (max-width: 600px) {
+    height: 100px;
+  }
+  @media (max-width: 420px) {
+    padding: 0px 10px;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -229,18 +287,25 @@ const ImageContainer = styled.div`
 `;
 
 const OuterImageContainer = styled.div`
-  width: 100px;
+  width: 110px;
+  @media (max-width: 600px) {
+    width: 100px;
+  }
 `;
 
 const ImageCircle = styled.div`
   border-radius: 100%;
   border: 2px solid #fff;
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   background-color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 600px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -261,4 +326,14 @@ const Description = styled.p`
   font-size: 12px;
   color: #f8f8f8;
   -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  word-wrap: break-word;
+  display: -webkit-box;
+  visibility: visible;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  text-overflow: ellipsis;
+  @media (max-width: 600px) {
+    -webkit-line-clamp: 3;
+  }
 `;
