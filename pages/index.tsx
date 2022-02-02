@@ -15,37 +15,37 @@ const Home: NextPage = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
+  // useEffect(() => {
     // function checkAuth(token: Number) {
     // }
 
     // setToken(router.query.token);
 
-    const fetchData = async () => {
-      // console.log("user", user);
-      // setUserList([fakeUser])
-      // setOriginalData([fakeUser])
-      setLoading(false);
-      await fetch("api/getTerms", {
-        method: "POST",
-        headers: {},
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.length === 0) {
-            setLoading(true);
-          } else {
-            // console.log("API RESULT", result);
-            // console.log("token", result.communityToken);
-            // const auth = checkAuth(result.token);
-            // if (auth) {
-            //   setTermList(result);
-            // }
-          }
-        });
-    };
-    fetchData();
-  }, []);
+  //   const fetchData = async () => {
+  //     console.log("user", user);
+  //     setUserList([fakeUser])
+  //     setOriginalData([fakeUser])
+  //     setLoading(false);
+  //     await fetch("api/getTerms", {
+  //       method: "POST",
+  //       headers: {},
+  //     })
+  //       .then((res) => res.json())
+  //       .then((result) => {
+  //         if (result.length === 0) {
+  //           setLoading(true);
+  //         } else {
+  //           console.log("API RESULT", result);
+  //           console.log("token", result.communityToken);
+  //           const auth = checkAuth(result.token);
+  //           if (auth) {
+  //             setTermList(result);
+  //           }
+  //         }
+  //       });
+  //   };
+  //   fetchData();
+  // }, []);
 
   const terms = [
     {
@@ -71,19 +71,26 @@ const Home: NextPage = () => {
   return (
     <GlobalContainer>
       <TopBar>
-        <LogIn dummy>LOG IN</LogIn>
+        <TopLeftLogo>
+          <Image
+            layout={"fill"}
+            objectFit={"contain"}
+            src={unofficialIcon}
+            alt="logo"
+          />
+        </TopLeftLogo>
         <MiddleSection>
           <TopButton first type="button" onClick={() => console.log("hey")}>
-            ABOUT
+            MISSION
           </TopButton>
           <TopButton type="button" onClick={() => console.log("hey")}>
-            NFT OWNERSHIP
+            OWN A PHRASE
           </TopButton>
           <TopButton type="button" onClick={() => console.log("hey")}>
-            VERIFIED LIST
+            SCHOLARS
           </TopButton>
         </MiddleSection>
-        <LogIn type="button">LOG IN</LogIn>
+        <Connect type="button">CONNECT</Connect>
       </TopBar>
       <LogoWrapper>
         <Image
@@ -126,14 +133,18 @@ export default Home;
 const GlobalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   align-items: center;
 `;
 
 const TopBar = styled.div`
-  height: 100px;
+  height: 90px !important;
   display: flex;
   width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(47, 47, 47, 1) 0%,
+    rgba(34, 39, 44, 1) 100%
+  );
   justify-content: center;
   @media (max-width: 768px) {
     flex-direction: column-reverse;
@@ -151,16 +162,14 @@ interface FirstElement {
 
 const TopButton = styled.button`
   background-color: transparent;
-  border: 1px solid #fff;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  color: #fff;
+  border: none;
+  color: #7bffdf;
   margin-left: ${(p: FirstElement) => (p.first ? "0px" : "20px")};
   height: 25px;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   @media (min-width: 1000px) {
-    width: 175px;
+    width: 150px;
   }
   @media (max-width: 1000px) {
     margin-left: ${(p: FirstElement) => (p.first ? "20px" : "20px")};
@@ -178,30 +187,27 @@ const TopButton = styled.button`
   }
 `;
 
-interface LogIn {
-  dummy?: boolean;
-}
+const TopLeftLogo = styled.div`
+  width: 40px;
+  height: 40px;
+  position: relative;
+  // cursor: pointer;
+  margin-left: 20px;
+  margin-right: auto;
+`;
 
-const LogIn = styled.button`
+const Connect = styled.button`
   cursor: pointer;
-  margin-left: ${(p: LogIn) => (p.dummy ? "20px" : "auto")};
-  margin-right: ${(p: LogIn) => (p.dummy ? "auto" : "20px")};
-  width: 120px;
+  margin-left: auto;
+  margin-right: 20px;
+  width: 100px;
   border: none;
-  height: 21px;
-  background: ${(p: LogIn) =>
-    p.dummy
-      ? "transparent"
-      : `linear-gradient(
-    90deg,
-    rgba(0, 56, 245, 1) 0%,
-    rgba(0, 249, 181, 1) 100%
-  )`};
+  height: 25px;
+  background: #7bffdf;
+  color: #2A3A3C;
   font-weight: bold;
+  border-radius: 3px;
   font-size: 12px;
-  @media (max-width: 1000px) {
-    display: ${(p: LogIn) => (p.dummy ? "none" : "")};
-  }
   @media (max-width: 768px) {
     margin-left: 0;
     margin-right: 0;
