@@ -1,25 +1,33 @@
 import type { NextPage } from "next";
-import { useDebugValue, useEffect, useState } from "react";
+import { useDebugValue, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 // import { useUser } from "../firebase/useUser";
 import styled from "styled-components";
 import heroLogo from "../img/Hero Logo.png";
 import unofficialIcon from "../img/unofficial_icon.png";
 import Image from "next/image";
+import MainTerms from "../components/MainTerms";
+import metaphrase from "../img/metaphrase.svg";
+import { Text, FlexRow, ButtonIcon } from "../styles/css.ts";
+import trending from "../img/whatshot.svg";
+import search from "../img/search.svg";
 
 const Home: NextPage = () => {
   const [termList, setTermList] = useState([]);
   const [token, setToken] = useState();
   // const { user } = useUser();
   const [loading, setLoading] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
+
+  const mainContainerRef = useRef(null);
 
   const router = useRouter();
 
   // useEffect(() => {
-    // function checkAuth(token: Number) {
-    // }
+  // function checkAuth(token: Number) {
+  // }
 
-    // setToken(router.query.token);
+  // setToken(router.query.token);
 
   //   const fetchData = async () => {
   //     console.log("user", user);
@@ -69,75 +77,122 @@ const Home: NextPage = () => {
   ];
 
   return (
-    <GlobalContainer>
-      <TopBar>
-        <TopLeftLogo>
-          <Image
-            layout={"fill"}
-            objectFit={"contain"}
-            src={unofficialIcon}
-            alt="logo"
-          />
-        </TopLeftLogo>
-        <MiddleSection>
-          <TopButton first type="button" onClick={() => console.log("hey")}>
-            MISSION
-          </TopButton>
-          <TopButton type="button" onClick={() => console.log("hey")}>
-            OWN A PHRASE
-          </TopButton>
-          <TopButton type="button" onClick={() => console.log("hey")}>
-            SCHOLARS
-          </TopButton>
-        </MiddleSection>
-        <Connect type="button">CONNECT</Connect>
-      </TopBar>
-      <LogoWrapper>
-        <Image
-          layout={"fill"}
-          objectFit={"contain"}
-          src={heroLogo}
-          alt="logo"
-        />
-      </LogoWrapper>
-      <SearchTerms type="text" placeholder="Search the Metaverse..." />
-      <TermsContainer>
-        <TrendingText>TRENDING</TrendingText>
-        {terms.map((term, index) => (
-          <Term key={index}>
-            <OuterImageContainer>
-              <ImageCircle>
-                <ImageContainer>
+    <>
+      <HeroContainer>
+        <TopBar>
+          <TopLeftLogo>
+            <Image
+              layout={"fill"}
+              objectFit={"contain"}
+              src={unofficialIcon}
+              alt="logo"
+            />
+          </TopLeftLogo>
+          <MiddleSection>
+            <TopButton first type="button" onClick={() => console.log("hey")}>
+              MISSION
+            </TopButton>
+            <TopButton type="button" onClick={() => console.log("hey")}>
+              OWN A PHRASE
+            </TopButton>
+            <TopButton type="button" onClick={() => console.log("hey")}>
+              SCHOLARS
+            </TopButton>
+          </MiddleSection>
+          <Connect type="button">CONNECT</Connect>
+        </TopBar>
+        <MiddleHero>
+          <Text>THE ENCYCLOPEDIA OF THE METAVERSE</Text>
+          <FlexRow>
+            <LogoWrapper>
+              <Image
+                layout={"fill"}
+                objectFit={"contain"}
+                src={unofficialIcon}
+                alt="logo"
+              />
+            </LogoWrapper>
+            <LogoWrapper>
+              <Image
+                layout={"fill"}
+                objectFit={"contain"}
+                src={metaphrase}
+                alt="logo"
+              />
+            </LogoWrapper>
+          </FlexRow>
+          <FlexRow>
+            {!showSearch ? (
+              <HeroButton
+                background={`linear-gradient(
+                    156deg,
+                    rgba(0, 0, 0, 1) 0%,
+                    rgba(30, 34, 38, 1) 100%
+                  )`}
+                onClick={() => setShowSearch(true)}
+              >
+                <Text>SEARCH PHRASES</Text>
+                <ButtonIcon>
                   <Image
                     layout={"fill"}
                     objectFit={"contain"}
-                    src={term.image === "" ? unofficialIcon : term.image}
-                    alt="Term icon"
+                    src={search}
+                    alt="logo"
                   />
-                </ImageContainer>
-              </ImageCircle>
-            </OuterImageContainer>
-            <TextContainer>
-              <Title>{term.title.toUpperCase()}</Title>
-              <Description>{term.description}</Description>
-            </TextContainer>
-          </Term>
-        ))}
-      </TermsContainer>
-    </GlobalContainer>
+                </ButtonIcon>
+              </HeroButton>
+            ) : (
+              <SearchTerms type="text" placeholder="Search the Metaverse..." />
+            )}
+            <HeroButton
+              backgroundColor="#375693"
+              onClick={() =>
+                mainContainerRef.current.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+            >
+              <Text>SEE TRENDING</Text>
+              <ButtonIcon>
+                <Image
+                  layout={"fill"}
+                  objectFit={"contain"}
+                  src={trending}
+                  alt="logo"
+                />
+              </ButtonIcon>
+            </HeroButton>
+          </FlexRow>
+        </MiddleHero>
+      </HeroContainer>
+
+      <MainTerms mainContainerRef={mainContainerRef} terms={terms} />
+    </>
   );
 };
 
 export default Home;
 
-const GlobalContainer = styled.div`
+const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+`;
+
+const MiddleHero = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 40%;
 `;
 
 const TopBar = styled.div`
-  height: 90px !important;
+  height: 80px !important;
   display: flex;
   width: 100%;
   background: linear-gradient(
@@ -150,6 +205,8 @@ const TopBar = styled.div`
     flex-direction: column-reverse;
   }
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 `;
 
 const MiddleSection = styled.div`
@@ -168,6 +225,7 @@ const TopButton = styled.button`
   height: 25px;
   font-size: 14px;
   cursor: pointer;
+  letter-spacing: 0.5px;
   @media (min-width: 1000px) {
     width: 150px;
   }
@@ -204,7 +262,7 @@ const Connect = styled.button`
   border: none;
   height: 25px;
   background: #7bffdf;
-  color: #2A3A3C;
+  color: #2a3a3c;
   font-weight: bold;
   border-radius: 3px;
   font-size: 12px;
@@ -227,6 +285,28 @@ const LogoWrapper = styled.div`
   }
 `;
 
+interface HeroButton {
+  backgroundColor?: string;
+  background?: string;
+}
+
+const HeroButton = styled.button<HeroButton>`
+  cursor: pointer;
+  width: 48%;
+  background-color: ${(p) => p.backgroundColor && p.backgroundColor};
+  background: ${(p) => p.background && p.background};
+  -webkit-border-image: -webkit-gradient(
+      linear,
+      top,
+      bottom,
+      from(#fff),
+      to(#61a4ba),
+      color-stop(0.5, #fff),
+      color-stop(0.5, #66cc00)
+    )
+    21 30 30 21 repeat repeat;
+`;
+
 const SearchTerms = styled.input`
   width: 450px;
   height: 30px;
@@ -240,104 +320,5 @@ const SearchTerms = styled.input`
   font-family: "Roboto Mono", monospace;
   @media (max-width: 600px) {
     width: 90%;
-  }
-`;
-
-const TermsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 70%;
-  @media (max-width: 600px) {
-    width: 80%;
-  }
-  @media (max-width: 420px) {
-    width: 90%;
-  }
-`;
-
-const TrendingText = styled.div`
-  text-decoration: underline;
-  font-size: 22px;
-  margin: 20px 0;
-`;
-
-const Term = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  border: 1px solid #666666;
-  background-color: #141414;
-  border-radius: 35px;
-  height: 110px;
-  padding: 0px 40px;
-  margin-bottom: 20px;
-  @media (max-width: 600px) {
-    height: 100px;
-  }
-  @media (max-width: 420px) {
-    padding: 0px 10px;
-  }
-`;
-
-const ImageContainer = styled.div`
-  width: 50px;
-  height: 50px;
-  position: relative;
-  display: flex;
-`;
-
-const OuterImageContainer = styled.div`
-  width: 110px;
-  @media (max-width: 600px) {
-    width: 100px;
-  }
-`;
-
-const ImageCircle = styled.div`
-  border-radius: 100%;
-  border: 2px solid #fff;
-  width: 110px;
-  height: 110px;
-  background-color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media (max-width: 600px) {
-    width: 100px;
-    height: 100px;
-  }
-`;
-
-const TextContainer = styled.div`
-  margin-left: 20px;
-  display: flex;
-  width: 80%;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const Title = styled.h1`
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-const Description = styled.p`
-  margin-top: 0px;
-  font-size: 12px;
-  color: #f8f8f8;
-  -webkit-font-smoothing: antialiased;
-  overflow: hidden;
-  word-wrap: break-word;
-  display: -webkit-box;
-  visibility: visible;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  text-overflow: ellipsis;
-  @media (max-width: 600px) {
-    -webkit-line-clamp: 3;
   }
 `;
