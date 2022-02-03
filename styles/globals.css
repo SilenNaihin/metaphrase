@@ -7,4 +7,31 @@ body {
   color: #fff;
   background-image: url("../img/metaphrase_site_main_landing_background.png");
   background-size: contain;
+  overflow-x: hidden;
+  overflow: overlay;
+}
+
+body::-webkit-scrollbar {
+  width: 16px;
+}
+body::-webkit-scrollbar-thumb {
+  background: #babac036;
+  border: solid 4px transparent;
+  background-clip: padding-box;
+  width: 16px;
+  border-radius: 16px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: #606060;
+  border: solid 4px transparent;
+  width: 16px;
+  border-radius: 16px;
+  background-clip: padding-box;
+}
+body::-webkit-scrollbar-track {
+  background: none;
+}
+
+body::-webkit-scrollbar-button {
+    display:none;
 }

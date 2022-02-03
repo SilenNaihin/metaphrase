@@ -227,7 +227,7 @@ const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 `;
 
 const TopBar = styled.div`
@@ -298,14 +298,6 @@ const Connect = styled.button`
   font-weight: 600;
   border-radius: 3px;
   font-size: 12px;
-  @media (max-width: 768px) {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-  @media (max-width: 420px) {
-    width: 30%;
-  }
 `;
 
 const LogoWrapper = styled.div`
