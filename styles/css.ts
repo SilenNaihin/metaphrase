@@ -8,11 +8,11 @@ interface TextStyles {
 }
 
 export const Text = styled.p<TextStyles>`
-  font-family: "Roboto Mono", monospace;
+  font-family: "Red Hat Text", sans-serif;
   font-style: normal;
   font-weight: ${(p) => (p.bold ? 600 : 300)};
   font-size: ${(props) => props.size || "18px"};
-  line-height: 6px;
+  line-height: ${(props) => props.size || "18px"};
   letter-spacing: ${(props) => props.spacing || "normal"};
   color: ${(p) => p.color || "#fff"};
 `;
@@ -42,14 +42,17 @@ interface IconStyles {
   padding?: string;
   width?: string;
   height?: string;
+  margin?: string;
 }
 
 export const ButtonIcon = styled.div<IconStyles>`
-  padding: ${(p) => p.padding || "0 3px"};
-  width: ${(p) => p.width || "28px"};
-  height: ${(p) => p.height || "28px"};
+  padding: ${(p) => p.padding || "0"};
+  margin: ${(p) => p.margin || "0"};
+  width: ${(p) => p.width || "24px"};
+  height: ${(p) => p.height || "24px"};
   position: relative;
   outline: none !important;
+  cursor: pointer;
 `;
 
 interface FlexStyles {
@@ -57,6 +60,7 @@ interface FlexStyles {
   justifyContent?: string;
   fullHeight?: boolean;
   fullWidth?: boolean;
+  margin?: string;
 }
 
 export const FlexRow = styled.div<FlexStyles>`
@@ -67,6 +71,7 @@ export const FlexRow = styled.div<FlexStyles>`
   padding: 0px;
   height: ${(p) => p.fullHeight && "100%"};
   width: ${(p) => p.fullWidth && "100%"};
+  margin: ${(p) => p.margin || "0px"};
 `;
 
 export const FlexColumn = styled.div<FlexStyles>`

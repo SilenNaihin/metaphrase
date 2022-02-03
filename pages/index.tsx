@@ -11,6 +11,7 @@ import metaphrase from "../img/metaphrase.svg";
 import { Text, FlexRow, ButtonIcon } from "../styles/css.ts";
 import trending from "../img/whatshot.svg";
 import search from "../img/search.svg";
+import downChevron from "../img/chevron_down.svg";
 
 const Home: NextPage = () => {
   const [termList, setTermList] = useState([]);
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
   // const { user } = useUser();
   const [loading, setLoading] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
+  const [searchCards, setSearchCards] = useState("");
 
   const mainContainerRef = useRef(null);
 
@@ -26,8 +28,6 @@ const Home: NextPage = () => {
   // useEffect(() => {
   // function checkAuth(token: Number) {
   // }
-
-  // setToken(router.query.token);
 
   //   const fetchData = async () => {
   //     console.log("user", user);
@@ -44,8 +44,6 @@ const Home: NextPage = () => {
   //           setLoading(true);
   //         } else {
   //           console.log("API RESULT", result);
-  //           console.log("token", result.communityToken);
-  //           const auth = checkAuth(result.token);
   //           if (auth) {
   //             setTermList(result);
   //           }
@@ -101,69 +99,118 @@ const Home: NextPage = () => {
           </MiddleSection>
           <Connect type="button">CONNECT</Connect>
         </TopBar>
-        <MiddleHero>
-          <Text>THE ENCYCLOPEDIA OF THE METAVERSE</Text>
-          <FlexRow>
-            <LogoWrapper>
-              <Image
-                layout={"fill"}
-                objectFit={"contain"}
-                src={unofficialIcon}
-                alt="logo"
-              />
-            </LogoWrapper>
-            <LogoWrapper>
-              <Image
-                layout={"fill"}
-                objectFit={"contain"}
-                src={metaphrase}
-                alt="logo"
-              />
-            </LogoWrapper>
-          </FlexRow>
-          <FlexRow>
+        <BottomSection>
+          <MiddleHero>
+            <EncText>THE ENCYCLOPEDIA OF THE METAVERSE</EncText>
+            <FlexRow>
+              <LogoWrapper>
+                <Image
+                  layout={"fill"}
+                  objectFit={"contain"}
+                  src={unofficialIcon}
+                  alt="logo"
+                />
+              </LogoWrapper>
+              <LogoText>METAPHRASE</LogoText>
+            </FlexRow>
+
             {!showSearch ? (
-              <HeroButton
-                background={`linear-gradient(
+              <FlexRow
+                justifyContent="space-evenly"
+                alignItems="center"
+                fullWidth
+                margin="40px 0 100px 0"
+              >
+                <HeroButton
+                  background={`linear-gradient(
                     156deg,
                     rgba(0, 0, 0, 1) 0%,
                     rgba(30, 34, 38, 1) 100%
                   )`}
-                onClick={() => setShowSearch(true)}
+                  onClick={() => setShowSearch(true)}
+                >
+                  <ButtonText color="transparent" size="14px">
+                    SEARCH PHRASES
+                  </ButtonText>
+                  <HeroButtonIcon width="20px" height="20px">
+                    <Image
+                      layout={"fill"}
+                      objectFit={"contain"}
+                      src={search}
+                      alt="logo"
+                    />
+                  </HeroButtonIcon>
+                </HeroButton>
+                <HeroButton
+                  backgroundColor="#375693"
+                  onClick={() =>
+                    mainContainerRef.current.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                >
+                  <CustomText color="transparent" size="14px">
+                    SEE TRENDING
+                  </CustomText>
+                  <HeroButtonIcon width="16px" height="16px">
+                    <Image
+                      layout={"fill"}
+                      objectFit={"contain"}
+                      src={trending}
+                      alt="logo"
+                    />
+                  </HeroButtonIcon>
+                </HeroButton>
+              </FlexRow>
+            ) : (
+              <SearchFlexRow
+                justifyContent="space-evenly"
+                alignItems="center"
+                margin="40px 0 100px 0"
               >
-                <Text>SEARCH PHRASES</Text>
-                <ButtonIcon>
+                <SearchTerms
+                  type="text"
+                  placeholder="Search the Metaverse..."
+                  onChange={(e) => setSearchCards(e.target.value)}
+                />
+                <HeroButtonIcon
+                  onClick={() => console.log(searchCards)}
+                  width="20px"
+                  height="20px"
+                >
                   <Image
                     layout={"fill"}
                     objectFit={"contain"}
                     src={search}
                     alt="logo"
                   />
-                </ButtonIcon>
-              </HeroButton>
-            ) : (
-              <SearchTerms type="text" placeholder="Search the Metaverse..." />
+                </HeroButtonIcon>
+              </SearchFlexRow>
             )}
-            <HeroButton
-              backgroundColor="#375693"
-              onClick={() =>
-                mainContainerRef.current.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-            >
-              <Text>SEE TRENDING</Text>
-              <ButtonIcon>
-                <Image
-                  layout={"fill"}
-                  objectFit={"contain"}
-                  src={trending}
-                  alt="logo"
-                />
-              </ButtonIcon>
-            </HeroButton>
-          </FlexRow>
-        </MiddleHero>
+
+            <BrowseLib>
+              <Text spacing="3px" color="#78797B" size="14px">
+                BROWSE LIBRARY
+              </Text>
+              <ChevronWrapper
+                onClick={() =>
+                  mainContainerRef.current.scrollIntoView({
+                    behavior: "smooth",
+                  })
+                }
+              >
+                <ButtonIcon width="18px" height="18px" margin="2px 0 0 0">
+                  <Image
+                    layout={"fill"}
+                    objectFit={"contain"}
+                    src={downChevron}
+                    alt="logo"
+                  />
+                </ButtonIcon>
+              </ChevronWrapper>
+            </BrowseLib>
+          </MiddleHero>
+        </BottomSection>
       </HeroContainer>
 
       <MainTerms mainContainerRef={mainContainerRef} terms={terms} />
@@ -176,23 +223,12 @@ export default Home;
 const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
-  width: 100%;
-`;
-
-const MiddleHero = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 50%;
-  width: 40%;
+  width: 100vw;
 `;
 
 const TopBar = styled.div`
-  height: 80px !important;
+  height: 90px !important;
   display: flex;
   width: 100%;
   background: linear-gradient(
@@ -226,23 +262,16 @@ const TopButton = styled.button`
   font-size: 14px;
   cursor: pointer;
   letter-spacing: 0.5px;
-  @media (min-width: 1000px) {
-    width: 150px;
-  }
-  @media (max-width: 1000px) {
-    margin-left: ${(p: FirstElement) => (p.first ? "20px" : "20px")};
-  }
-  @media (max-width: 768px) {
-    margin-left: ${(p: FirstElement) => (p.first ? "0" : "20px")};
-  }
-  @media (max-width: 600px) {
-    width: 125px;
-  }
-  @media (max-width: 420px) {
-    width: 33%;
-    margin-left: ${(p: FirstElement) => (p.first ? "0" : "10px")};
-    height: 40px;
-  }
+`;
+
+const EncText = styled.p`
+  background: linear-gradient(0deg, #414449, #f7f7f7);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 12px;
+  margin-bottom: -16px;
 `;
 
 const TopLeftLogo = styled.div`
@@ -258,12 +287,12 @@ const Connect = styled.button`
   cursor: pointer;
   margin-left: auto;
   margin-right: 20px;
-  width: 100px;
+  width: 80px;
   border: none;
   height: 25px;
   background: #7bffdf;
   color: #2a3a3c;
-  font-weight: bold;
+  font-weight: 600;
   border-radius: 3px;
   font-size: 12px;
   @media (max-width: 768px) {
@@ -277,12 +306,9 @@ const Connect = styled.button`
 `;
 
 const LogoWrapper = styled.div`
-  width: 450px;
-  height: 100px;
+  width: 55px;
+  height: 55px;
   position: relative;
-  @media (max-width: 600px) {
-    width: 90%;
-  }
 `;
 
 interface HeroButton {
@@ -292,33 +318,121 @@ interface HeroButton {
 
 const HeroButton = styled.button<HeroButton>`
   cursor: pointer;
-  width: 48%;
+  height: 50px;
+  width: 45%;
   background-color: ${(p) => p.backgroundColor && p.backgroundColor};
   background: ${(p) => p.background && p.background};
-  -webkit-border-image: -webkit-gradient(
-      linear,
-      top,
-      bottom,
-      from(#fff),
-      to(#61a4ba),
-      color-stop(0.5, #fff),
-      color-stop(0.5, #66cc00)
-    )
-    21 30 30 21 repeat repeat;
+  outline: none;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // &::before {
+  //   -webkit-border-image: -webkit-gradient(
+  //       linear,
+  //       top,
+  //       bottom,
+  //       from(#fff),
+  //       to(#61a4ba),
+  //       color-stop(0.5, #fff),
+  //       color-stop(0.5, #66cc00)
+  //     )
+  //     21 30 30 21 repeat repeat;
+  // }
+`;
+
+const HeroButtonIcon = styled(ButtonIcon)`
+  // color: linear-gradient(0deg, #414449, #f7f7f7);
+  margin-left: 10px;
+  cursor: pointer;
+`;
+
+const BottomSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`;
+
+const MiddleHero = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 35%;
+  margin-top: 42px;
+`;
+
+const LogoText = styled.h1`
+  background: linear-gradient(0deg, #969696, #fff);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 48px;
+  margin-left: 20px;
+  font-weight: normal;
+  letter-spacing: 10px;
+  // margin-bottom: -4px;
+`;
+
+const BrowseLib = styled.div`
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonText = styled(Text)`
+  background: linear-gradient(0deg, #414449, #f7f7f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+`;
+
+const CustomText = styled(Text)`
+  background: linear-gradient(0deg, #63cfb5, #7bffdf);
+  background-clip: text;
+  -webkit-background-clip: text;
+`;
+
+const ChevronWrapper = styled.div`
+  border-radius: 100%;
+  border: 1px solid #fff;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+const SearchFlexRow = styled(FlexRow)`
+  border-radius: 3px;
+  border: 1px solid #fff;
+  background: linear-gradient(
+    170deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(30, 34, 38, 1) 100%
+  );
+  padding-right: 10px;
 `;
 
 const SearchTerms = styled.input`
-  width: 450px;
-  height: 30px;
-  border: 2px solid #fff;
-  border-radius: 3px;
+  width: 400px;
+  height: 40px;
+  border: none;
   padding-left: 10px;
-  margin-bottom: 20px;
-  margin-top: 35px;
-  background-color: black;
-  color: #fff;
-  font-family: "Roboto Mono", monospace;
-  @media (max-width: 600px) {
-    width: 90%;
+  font-size: 16px;
+  outline: none;
+  background-color: transparent;
+  &::placeholder {
+    color: #78797b;
   }
+  color: #78797b;
+  font-family: "Red Hat Text", sans-serif;
 `;
