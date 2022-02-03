@@ -145,6 +145,7 @@ const Home: NextPage = () => {
                 <HeroButton
                   backgroundColor="#375693"
                   onClick={() =>
+                    // @ts-ignore
                     mainContainerRef.current.scrollIntoView({
                       behavior: "smooth",
                     })
@@ -195,6 +196,7 @@ const Home: NextPage = () => {
               </Text>
               <ChevronWrapper
                 onClick={() =>
+                  // @ts-ignore
                   mainContainerRef.current.scrollIntoView({
                     behavior: "smooth",
                   })
