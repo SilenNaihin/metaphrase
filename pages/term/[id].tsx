@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRouter } from "../router";
+import { useRouter } from "next/router";
 
 const MainTerms: React.FC<MainTerms> = ({ mainContainerRef, terms }) => {
 
