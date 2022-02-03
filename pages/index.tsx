@@ -8,7 +8,7 @@ import unofficialIcon from "../img/unofficial_icon.png";
 import Image from "next/image";
 import MainTerms from "../components/MainTerms";
 import metaphrase from "../img/metaphrase.svg";
-import { Text, FlexRow, ButtonIcon } from "../styles/css.tsx";
+import { Text, FlexRow, ButtonIcon } from "../styles/css.ts";
 import trending from "../img/whatshot.svg";
 import search from "../img/search.svg";
 import downChevron from "../img/chevron_down.svg";

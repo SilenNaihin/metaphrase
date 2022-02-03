@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -8,13 +7,20 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "module": "amd",
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "http://*": ["../../../.deno/deps/http/*"],
+      "https://*": ["../../../.deno/deps/https/*"],
+      "*.ts": ["*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "styles/css.js"],
   "exclude": ["node_modules"]
 }
