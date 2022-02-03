@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-const MainTerms: React.FC<MainTerms> = ({ mainContainerRef, terms }) => {
+const MainTerms: React.FC = () => {
 
     const router = useRouter();
     const id = router.query
 
   return (
-    <MainContainer ref={mainContainerRef}>
+    <MainContainer>
 
     </MainContainer>
   );
