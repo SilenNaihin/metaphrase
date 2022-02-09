@@ -5,6 +5,7 @@ import { FlexRow } from "../styles/css";
 import trendingIcon from "../img/whatshot.svg";
 import Search from "../components/Search";
 import { useEffect, useState } from "react";
+import { NextPage } from "next";
 
 interface Term {
   title: string;
@@ -13,39 +14,35 @@ interface Term {
   trending?: boolean;
 }
 
-interface MainTerms {
-  mainContainerRef: React.RefObject<HTMLDivElement>;
-  terms: Term[];
-  searchCards: string;
-  setSearchCards: (value: string) => void;
-  setSearchCond: (value: string) => void;
-  searchCond: string;
-}
+const Trending: NextPage = () => {
+  const [searchCards, setSearchCards] = useState("");
 
-const MainTerms: React.FC<MainTerms> = ({
-  mainContainerRef,
-  terms,
-  searchCards,
-  setSearchCards,
-  searchCond,
-  setSearchCond,
-}) => {
-  const [newTerms, setNewTerms] = useState<Term[]>(terms);
-
-  useEffect(() => {
-    // filter for search
-    const tempTerms = terms.filter((term) =>
-      term.title.toLowerCase().includes(searchCards.toLowerCase())
-    );
-    // filter by heading
-    const tempTerms2 = tempTerms.filter(
-      (term) => (term as any)[searchCond] === true
-    );
-    setNewTerms(tempTerms2);
-  }, [searchCards, searchCond, terms]);
+  const terms = [
+    {
+      title: "cryptocurrency",
+      image: "",
+      description:
+        'Cryptocurrency (or "crypto") refers to a digital currency in which transactions are verified via blockchain technology, and records are maintained by a decentralized system using cryptography rather than by a centralized authority.',
+      trending: true,
+    },
+    {
+      title: "FiaT",
+      image: "",
+      description:
+        'Fiat (or "fiat currency") is a term used to refer to government-issued currency in which there is no commodity or asset backing it\'s underlying value. The value of fiat currency is derived fr om the word and trust of the people who use it as a medium of exchange.',
+      trending: true,
+    },
+    {
+      title: "FiaT",
+      image: "",
+      description:
+        'Fiat (or "fiat currency") is a term is a term is a term is a term is a term used to refer to government-issued currency in which there is no commodity or asset backing it\'s underlying value. The value of fiat currency is derived fr om the word and trust of the people who use it as a medium of exchange.',
+      trending: true,
+    },
+  ];
 
   return (
-    <MainContainer ref={mainContainerRef}>
+    <MainContainer>
       <TermsContainer>
         <EncText>
           THE <b>ENCYCLOPEDIA</b> OF THE <b>METAVERSE</b>
@@ -66,7 +63,7 @@ const MainTerms: React.FC<MainTerms> = ({
           setSearchCards={setSearchCards}
           searchCards={searchCards}
         />
-        {newTerms.map((term: Term, index: number) => (
+        {terms.map((term: Term, index: number) => (
           <Term key={index}>
             <OuterImageContainer>
               <ImageCircle>
@@ -91,7 +88,7 @@ const MainTerms: React.FC<MainTerms> = ({
   );
 };
 
-export default MainTerms;
+export default Trending;
 
 const MainContainer = styled.div`
   display: flex;

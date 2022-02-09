@@ -11,8 +11,9 @@ import metaphrase from "../img/metaphrase.svg";
 // @ts-ignore
 import { Text, FlexRow, ButtonIcon } from "../styles/css.ts";
 import trending from "../img/whatshot.svg";
-import search from "../img/search.svg";
+import searchIcon from "../img/search.svg";
 import downChevron from "../img/chevron_down.svg";
+import Search from "../components/Search";
 
 const Home: NextPage = () => {
   const [termList, setTermList] = useState([]);
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
   const [searchCards, setSearchCards] = useState("");
+  const [searchCond, setSearchCond] = useState("trending");
 
   const mainContainerRef = useRef(null);
 
@@ -60,18 +62,21 @@ const Home: NextPage = () => {
       image: "",
       description:
         'Cryptocurrency (or "crypto") refers to a digital currency in which transactions are verified via blockchain technology, and records are maintained by a decentralized system using cryptography rather than by a centralized authority.',
+      trending: true,
     },
     {
       title: "FiaT",
       image: "",
       description:
         'Fiat (or "fiat currency") is a term used to refer to government-issued currency in which there is no commodity or asset backing it\'s underlying value. The value of fiat currency is derived fr om the word and trust of the people who use it as a medium of exchange.',
+      trending: true,
     },
     {
       title: "FiaT",
       image: "",
       description:
         'Fiat (or "fiat currency") is a term is a term is a term is a term is a term used to refer to government-issued currency in which there is no commodity or asset backing it\'s underlying value. The value of fiat currency is derived fr om the word and trust of the people who use it as a medium of exchange.',
+      trending: true,
     },
   ];
 
@@ -137,7 +142,7 @@ const Home: NextPage = () => {
                     <Image
                       layout={"fill"}
                       objectFit={"contain"}
-                      src={search}
+                      src={searchIcon}
                       alt="logo"
                     />
                   </HeroButtonIcon>
@@ -165,29 +170,10 @@ const Home: NextPage = () => {
                 </HeroButton>
               </FlexRow>
             ) : (
-              <SearchFlexRow
-                justifyContent="space-evenly"
-                alignItems="center"
-                margin="40px 0 100px 0"
-              >
-                <SearchTerms
-                  type="text"
-                  placeholder="Search the Metaverse..."
-                  onChange={(e) => setSearchCards(e.target.value)}
-                />
-                <HeroButtonIcon
-                  onClick={() => console.log(searchCards)}
-                  width="20px"
-                  height="20px"
-                >
-                  <Image
-                    layout={"fill"}
-                    objectFit={"contain"}
-                    src={search}
-                    alt="logo"
-                  />
-                </HeroButtonIcon>
-              </SearchFlexRow>
+              <Search
+                setSearchCards={setSearchCards}
+                searchCards={searchCards}
+              />
             )}
 
             <BrowseLib>
@@ -216,7 +202,14 @@ const Home: NextPage = () => {
         </BottomSection>
       </HeroContainer>
 
-      <MainTerms mainContainerRef={mainContainerRef} terms={terms} />
+      <MainTerms
+        mainContainerRef={mainContainerRef}
+        terms={terms}
+        setSearchCards={setSearchCards}
+        searchCards={searchCards}
+        searchCond={searchCond}
+        setSearchCond={setSearchCond}
+      />
     </>
   );
 };
