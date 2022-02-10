@@ -14,7 +14,7 @@ import trending from "../img/whatshot.svg";
 import searchIcon from "../img/search.svg";
 import downChevron from "../img/chevron_down.svg";
 import Search from "../components/Search";
-import heroImg from "../img/metaphrase_site_main_landing_background.png"
+import heroImg from "../img/metaphrase_site_main_landing_background.png";
 
 const Home: NextPage = () => {
   const [termList, setTermList] = useState([]);
@@ -33,28 +33,27 @@ const Home: NextPage = () => {
   // function checkAuth(token: Number) {
   // }
 
-  //   const fetchData = async () => {
-  //     console.log("user", user);
-  //     setUserList([fakeUser])
-  //     setOriginalData([fakeUser])
-  //     setLoading(false);
-  //     await fetch("api/getTerms", {
-  //       method: "POST",
-  //       headers: {},
-  //     })
-  //       .then((res) => res.json())
-  //       .then((result) => {
-  //         if (result.length === 0) {
-  //           setLoading(true);
-  //         } else {
-  //           console.log("API RESULT", result);
-  //           if (auth) {
-  //             setTermList(result);
-  //           }
-  //         }
-  //       });
-  //   };
-  //   fetchData();
+  const fetchData = async () => {
+    const response = await fetch(`${process.env.DBURL}/terms`);
+    console.log(response)
+    // setLoading(false);
+    // await fetch("api/getTerms", {
+    //   method: "POST",
+    //   headers: {},
+    // })
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     if (result.length === 0) {
+    //       setLoading(true);
+    //     } else {
+    //       console.log("API RESULT", result);
+    //       if (auth) {
+    //         setTermList(result);
+    //       }
+    //     }
+    //   });
+  };
+  fetchData();
   // }, []);
 
   const terms = [
