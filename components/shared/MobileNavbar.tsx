@@ -6,7 +6,7 @@ interface MobileNavbar {
   navbarHeight: string;
 }
 
-const MobileNavbar: React.FC<Navbar> = ({ navbarHeight }) => {
+const MobileNavbar: React.FC<MobileNavbar> = ({ navbarHeight }) => {
   return (
     <TopBar navbarHeight={navbarHeight}>
       <TopLeftLogo>
