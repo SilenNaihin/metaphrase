@@ -8,7 +8,7 @@ interface Navbar {
 
 const Navbar: React.FC<Navbar> = ({ navbarHeight }) => {
   return (
-    <TopBar>
+    <TopBar navbarHeight={navbarHeight}>
       <TopLeftLogo>
         <Image
           layout={"fill"}
@@ -35,8 +35,13 @@ const Navbar: React.FC<Navbar> = ({ navbarHeight }) => {
 
 export default Navbar;
 
+interface TopBar {
+  navbarHeight: string;
+}
+
 const TopBar = styled.div`
-  height: 90px !important;
+  height: ${(props: TopBar) => props.navbarHeight};
+  position: absolute;
   display: flex;
   width: 100%;
   background: linear-gradient(

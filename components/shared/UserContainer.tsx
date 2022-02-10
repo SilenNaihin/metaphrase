@@ -50,7 +50,7 @@ interface PageContent {
 
 const PageContent = styled.div`
   flex: 1;
-  margin-top: ${(p: PageContent) => p.navbarHeight};
+  // padding-top: ${(p: PageContent) => p.navbarHeight};
   height: 100%;
   width: 100%;
   background-color: #13161B;

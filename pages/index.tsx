@@ -210,6 +210,16 @@ const HeroContainer = styled.div`
   background-position: center center;
 `;
 
+const MiddleHero = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 35%;
+  margin-top: 100px;
+`;
+
 const EncText = styled.p`
   background: linear-gradient(0deg, #414449, #f7f7f7);
   color: transparent;
@@ -270,16 +280,6 @@ const BottomSection = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-`;
-
-const MiddleHero = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60%;
-  width: 35%;
-  margin-top: 42px;
 `;
 
 const LogoText = styled.h1`
