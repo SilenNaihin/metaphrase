@@ -14,6 +14,7 @@ import trending from "../img/whatshot.svg";
 import searchIcon from "../img/search.svg";
 import downChevron from "../img/chevron_down.svg";
 import Search from "../components/Search";
+import heroImg from "../img/metaphrase_site_main_landing_background.png"
 
 const Home: NextPage = () => {
   const [termList, setTermList] = useState([]);
@@ -82,29 +83,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <HeroContainer>
-        <TopBar>
-          <TopLeftLogo>
-            <Image
-              layout={"fill"}
-              objectFit={"contain"}
-              src={unofficialIcon}
-              alt="logo"
-            />
-          </TopLeftLogo>
-          <MiddleSection>
-            <TopButton first type="button" onClick={() => console.log("hey")}>
-              MISSION
-            </TopButton>
-            <TopButton type="button" onClick={() => console.log("hey")}>
-              OWN A PHRASE
-            </TopButton>
-            <TopButton type="button" onClick={() => console.log("hey")}>
-              SCHOLARS
-            </TopButton>
-          </MiddleSection>
-          <Connect type="button">CONNECT</Connect>
-        </TopBar>
+      <HeroContainer heroImg={heroImg}>
         <BottomSection>
           <MiddleHero>
             <EncText>THE ENCYCLOPEDIA OF THE METAVERSE</EncText>
@@ -216,48 +195,19 @@ const Home: NextPage = () => {
 
 export default Home;
 
+interface HeroContainerProps {
+  heroImg: any;
+}
+
 const HeroContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-`;
-
-const TopBar = styled.div`
-  height: 90px !important;
-  display: flex;
-  width: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(47, 47, 47, 1) 0%,
-    rgba(34, 39, 44, 1) 100%
-  );
-  justify-content: center;
-  @media (max-width: 768px) {
-    flex-direction: column-reverse;
-  }
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-`;
-
-const MiddleSection = styled.div`
-  display: flex;
-`;
-
-interface FirstElement {
-  first?: boolean;
-}
-
-const TopButton = styled.button`
-  background-color: transparent;
-  border: none;
-  color: #7bffdf;
-  margin-left: ${(p: FirstElement) => (p.first ? "0px" : "20px")};
-  height: 25px;
-  font-size: 14px;
-  cursor: pointer;
-  letter-spacing: 0.5px;
+  background-image: url(${(props: HeroContainerProps) => props.heroImg.src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 `;
 
 const EncText = styled.p`
@@ -268,29 +218,6 @@ const EncText = styled.p`
   font-family: "Red Hat Text", sans-serif;
   font-size: 12px;
   margin-bottom: -16px;
-`;
-
-const TopLeftLogo = styled.div`
-  width: 40px;
-  height: 40px;
-  position: relative;
-  // cursor: pointer;
-  margin-left: 20px;
-  margin-right: auto;
-`;
-
-const Connect = styled.button`
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: 20px;
-  width: 80px;
-  border: none;
-  height: 25px;
-  background: #7bffdf;
-  color: #2a3a3c;
-  font-weight: 600;
-  border-radius: 3px;
-  font-size: 12px;
 `;
 
 const LogoWrapper = styled.div`
