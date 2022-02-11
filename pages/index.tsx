@@ -24,39 +24,7 @@ const Home: NextPage = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchCards, setSearchCards] = useState("");
   const [searchCond, setSearchCond] = useState("trending");
-
-  const mainContainerRef = useRef(null);
-
-  const router = useRouter();
-
-  // useEffect(() => {
-  // function checkAuth(token: Number) {
-  // }
-
-  const fetchData = async () => {
-    const response = await fetch(`${process.env.DBURL}/terms`);
-    console.log(response)
-    // setLoading(false);
-    // await fetch("api/getTerms", {
-    //   method: "POST",
-    //   headers: {},
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     if (result.length === 0) {
-    //       setLoading(true);
-    //     } else {
-    //       console.log("API RESULT", result);
-    //       if (auth) {
-    //         setTermList(result);
-    //       }
-    //     }
-    //   });
-  };
-  fetchData();
-  // }, []);
-
-  const terms = [
+  const [terms, setTerms] = useState([
     {
       title: "cryptocurrency",
       image: "",
@@ -78,7 +46,50 @@ const Home: NextPage = () => {
         'Fiat (or "fiat currency") is a term is a term is a term is a term is a term used to refer to government-issued currency in which there is no commodity or asset backing it\'s underlying value. The value of fiat currency is derived fr om the word and trust of the people who use it as a medium of exchange.',
       trending: true,
     },
-  ];
+  ]);
+  const [error, setError] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const mainContainerRef = useRef(null);
+
+  const router = useRouter();
+
+  // useEffect(() => {
+  // function checkAuth(token: Number) {
+  // }
+
+  const fetchData = async () => {
+    const response = await fetch(`${process.env.DBURL}/terms`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setTerms(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+    // setLoading(false);
+    // await fetch("api/getTerms", {
+    //   method: "POST",
+    //   headers: {},
+    // })
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     if (result.length === 0) {
+    //       setLoading(true);
+    //     } else {
+    //       console.log("API RESULT", result);
+    //       if (auth) {
+    //         setTermList(result);
+    //       }
+    //     }
+    //   });
+  };
+  fetchData();
+  // }, []);
 
   return (
     <>
