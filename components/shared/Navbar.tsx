@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import unofficialIcon from "../../img/unofficial_icon.png";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 interface Navbar {
   navbarHeight: string;
 }
 
 const Navbar: React.FC<Navbar> = ({ navbarHeight }) => {
+  const router = useRouter();
   return (
     <TopBar navbarHeight={navbarHeight}>
       <TopLeftLogo>
@@ -28,7 +30,9 @@ const Navbar: React.FC<Navbar> = ({ navbarHeight }) => {
           SCHOLARS
         </TopButton>
       </MiddleSection>
-      <Connect type="button">CONNECT</Connect>
+      <Connect type="button" onClick={() => router.push("signup")}>
+        LOG IN
+      </Connect>
     </TopBar>
   );
 };

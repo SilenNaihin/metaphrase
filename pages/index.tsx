@@ -54,42 +54,28 @@ const Home: NextPage = () => {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  // function checkAuth(token: Number) {
-  // }
-
-  const fetchData = async () => {
-    const response = await fetch(`${process.env.DBURL}/terms`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
+  useEffect(() => {
+    console.log("hello");
+    const fetchData = async () => {
+      await fetch(`http://localhost:8080/posts`, {
+        method: "GET",
+      })
+        .then((res) => {
+          res.json()
+        })
+        .then((res) => {
+          console.log(res)
+          // setTerms(res);
           setIsLoaded(true);
-          setTerms(result);
-        },
-        (error) => {
+        })
+        .catch((err) => {
           setIsLoaded(true);
-          setError(error);
-        }
-      );
-    // setLoading(false);
-    // await fetch("api/getTerms", {
-    //   method: "POST",
-    //   headers: {},
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     if (result.length === 0) {
-    //       setLoading(true);
-    //     } else {
-    //       console.log("API RESULT", result);
-    //       if (auth) {
-    //         setTermList(result);
-    //       }
-    //     }
-    //   });
-  };
-  fetchData();
-  // }, []);
+          console.log(err);
+          setError(err);
+        });
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -108,6 +94,7 @@ const Home: NextPage = () => {
               </LogoWrapper>
               <LogoText>METAPHRASE</LogoText>
             </FlexRow>
+            {/* <button onClick={}>test button</button> */}
 
             {!showSearch ? (
               <FlexRow

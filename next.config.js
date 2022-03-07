@@ -4,6 +4,9 @@ const nextConfig = {
 };
 
 module.exports = {
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
   async headers() {
     return [
       {
@@ -24,9 +27,6 @@ module.exports = {
         ],
       },
     ];
-  },
-  env: {
-    ENV_NAME: process.env.ENV_NAME,
   },
 };
 
